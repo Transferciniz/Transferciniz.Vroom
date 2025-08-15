@@ -60,7 +60,6 @@ void throw_error(osrm::json::Object& result,
 Matrices LibosrmWrapper::get_matrices(const std::vector<Location>& locs) const {
   osrm::TableParameters params;
   params.annotations = osrm::engine::api::TableParameters::AnnotationsType::All;
-
   params.coordinates.reserve(locs.size());
   params.radiuses.reserve(locs.size());
   for (auto const& location : locs) {
@@ -139,11 +138,11 @@ osrm::json::Object LibosrmWrapper::get_route_with_coordinates(
 
   // Default options for routing.
   osrm::RouteParameters
-    params(false, // steps
+    params(true, // steps
            false, // alternatives
            osrm::RouteParameters::GeometriesType::Polyline,
            osrm::RouteParameters::OverviewType::Full,
-           false, // continue_straight,
+           true, // continue_straight,
            std::move(coords),
            std::vector<std::optional<osrm::engine::Hint>>(),
            std::vector<std::optional<double>>(coords.size(),
